@@ -6,6 +6,7 @@
 
 package cartester;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -14,18 +15,28 @@ import java.util.Scanner;
  */
 public class CarTester {
 
+    static Scanner scanner = new Scanner(System.in);
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         
-        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
         
-        int choice;
-        
-        System.out.println("1. default\n2. user choice\n3. the other one");
-        
-        choice = scanner.nextInt();
+        while(true){
+            try{
+                choice = menu();
+                if((choice > 0)&&(choice < 4)){
+                    break;
+                }else{
+                    System.out.println("Invalid input");
+                }
+            }catch(InputMismatchException e){
+                System.out.println("Invalid input");
+                scanner.nextLine();
+            }
+        }
         
         Car car;
         
@@ -41,9 +52,17 @@ public class CarTester {
         
     }
     
+    public static int menu(){
+        
+        System.out.println("1. default\n2. user choice\n3. the other one");
+        
+        return scanner.nextInt();
+        
+    }
+    
     
     public static Car userInputCar(int carType){
-        Scanner scanner = new Scanner(System.in);
+        
         System.out.println("Make: ");
         String make = scanner.nextLine();
         
